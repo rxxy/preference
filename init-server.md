@@ -22,3 +22,6 @@ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compo
 
 sudo chmod +x /usr/local/bin/docker-compose
 
+## ssl
+curl https://get.acme.sh | sh
+
