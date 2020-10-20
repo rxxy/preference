@@ -24,4 +24,4 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ## ssl
 curl https://get.acme.sh | sh
-
+acme.sh --issue -d domain.com -w /data/var-lib-docker/volumes/andvids-en_andvids-en/_data
