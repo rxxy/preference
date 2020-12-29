@@ -1,8 +1,8 @@
 
 ## 磁盘操作
 
-fdisk /dev/vdb
-mkfs -t ext4 /dev/sdb1 
+fdisk /dev/vdb  
+mkfs -t ext4 /dev/sdb1   
 https://blog.csdn.net/wh445306/article/details/100932430
 
 ## 安装docker
@@ -25,3 +25,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 ## ssl
 curl https://get.acme.sh | sh
 acme.sh --issue -d domain.com -w /data/var-lib-docker/volumes/andvids-en_andvids-en/_data
+
+## 常用工具
+yum install -y tmux
