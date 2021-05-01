@@ -30,8 +30,9 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 }
 EOF
 ```
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+sudo systemctl daemon-reload  
+sudo systemctl restart docker  
+
 
 
 ## ssl
@@ -40,3 +41,4 @@ acme.sh --issue -d domain.com -w /data/var-lib-docker/volumes/andvids-en_andvids
 
 ## 常用工具
 yum install -y tmux
+yum -y install lrzsz  
