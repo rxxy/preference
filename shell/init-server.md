@@ -22,6 +22,16 @@ curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compo
 
 sudo chmod +x /usr/local/bin/docker-compose
 
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+
 ## ssl
 curl https://get.acme.sh | sh
 acme.sh --issue -d domain.com -w /data/var-lib-docker/volumes/andvids-en_andvids-en/_data
