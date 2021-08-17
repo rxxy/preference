@@ -23,15 +23,41 @@ initDisk(){
 installDocker(){
     yum install -y yum-utils device-mapper-persistent-data lvm2
     yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-    yum makecache fast
+    yum makecache
+#    yum makecache fast
     yum -y install docker-ce
+    systemctl enable docker
+    
+    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose	
+	
+    mkdir -p /etc/docker
+    tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
+}
+EOF
 
-    # service docker start
+    systemctl daemon-reload
+    systemctl restart docker
+
+# service docker start
 
 }
 
+installAcme(){
+    curl https://get.acme.sh | sh acme.sh
+}
 
-preCheck
+installTool(){
+    curl https://get.acme.sh | sh acme.sh
+    yum install -y tmux htop
+    yum install -y lrzsz
+}
+
+
+
+#preCheck
 
 read -p "预检成功，请输入y确认继续操作:"  i
 if [ "$i" != y ];then
@@ -40,5 +66,5 @@ fi
 
 # initDisk
 installDocker
-
-
+nstallAcme
+installTool
