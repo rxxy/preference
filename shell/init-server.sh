@@ -23,8 +23,10 @@ initDisk(){
 installDocker(){
     yum install -y yum-utils device-mapper-persistent-data lvm2
     yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+    # centos8
     yum makecache
     yum erase podman buildah -y
+    # centos7
     #    yum makecache fast
     yum -y install docker-ce
     systemctl enable docker
@@ -34,10 +36,10 @@ installDocker(){
 	
     mkdir -p /etc/docker
     tee /etc/docker/daemon.json <<-'EOF'
-{
-  "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
-}
-EOF
+    {
+      "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
+    }
+    EOF
 
     systemctl daemon-reload
     systemctl restart docker
