@@ -36,9 +36,10 @@ installDocker(){
 	
     mkdir -p /etc/docker
     tee /etc/docker/daemon.json << EOF
-{
-   "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
-}EOF
+    {
+       "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
+    }
+EOF
 
     systemctl daemon-reload
     systemctl restart docker
