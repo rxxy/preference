@@ -1,0 +1,50 @@
+version: '3.1'
+
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+     - 3002:80
+    networks:
+      - traefik
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: "K3^&45HJKSD789"
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+       - wordpress:/var/www/html
+       - type: bind
+         source: ./custom.ini
+         target: /usr/local/etc/php/conf.d/custom.ini
+    labels:
+      - "traefik.http.middlewares.redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect.redirectscheme.permanent=true"
+
+      - "traefik.http.routers.wd.middlewares=redirect@docker"
+
+      - "traefik.http.routers.wd-https.rule=Host(`kuajing01.com`)"
+      - "traefik.http.routers.wd-https.entrypoints=websecure"
+      - "traefik.http.routers.wd-https.tls=true"
+      - "traefik.http.routers.wd-https.tls.certresolver=default"
+
+      - "traefik.http.routers.wd.rule=Host(`kuajing01.com`)"
+      - "traefik.http.routers.wd.entrypoints=web"
+
+      - "traefik.http.routers.wd-www.rule=Host(`www.kuajing01.com`)"
+      - "traefik.http.routers.wd-www.entrypoints=web"
+      - "traefik.http.routers.wd-www.middlewares=redirect-www@docker"
+      - "traefik.http.middlewares.redirect-www.redirectregex.regex=^http://www.kuajing01.com(.*)"
+      - "traefik.http.middlewares.redirect-www.redirectregex.replacement=https://kuajing01.com$${1}"
+
+      - "traefik.http.services.wd.loadbalancer.server.port=80"
+      - "traefik.enable=true"
+volumes:
+  wordpress:
+networks:
+  db:
+    external: true
+  traefik:
+    external: true

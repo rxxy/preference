@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  powerjob-server:
+    image: tjqq/powerjob-server:latest
+    container_name: 'powerjob-server'
+    restart: always
+    networks: 
+      - powerjob
+      - db
+    environment:
+      PARAMS: "--spring.profiles.active=product --spring.datasource.core.jdbc-url=jdbc:mysql://db:3306/powerjob-daily?useUnicode=true&characterEncoding=UTF-8 --spring.datasource.core.username=root --spring.datasource.core.password=root --oms.mongodb.enable=false"
+      TZ: Asia/Shanghai
+    ports:
+      - "7700:7700"
+      - "10086:10086"
+    volumes:
+      - ~/software/powerjob/server:/root/powerjob/server
+      - ~/.m2:/root/.m2
+networks:
+  powerjob:
+    external: true
+  db:
+    external: true
