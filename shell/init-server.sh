@@ -35,7 +35,7 @@ installDocker(){
     chmod +x /usr/local/bin/docker-compose	
 	
     mkdir -p /etc/docker
-    tee /etc/docker/daemon.json <<-'EOF'
+    tee /etc/docker/daemon.json << EOF
     {
       "registry-mirrors": ["https://2v383cca.mirror.aliyuncs.com"]
     }
