@@ -8,8 +8,8 @@ services:
     networks: 
       - traefik
     environment:
-      ALICLOUD_ACCESS_KEY: LTAI5tCHCzzYyRP6s726b3GM
-      ALICLOUD_SECRET_KEY: 4BGcaS9TNodxIQqdczhai1BDCJnoq0 
+      ALICLOUD_ACCESS_KEY: ALICLOUD_ACCESS_KEY
+      ALICLOUD_SECRET_KEY: ALICLOUD_SECRET_KEY 
       TZ: Asia/Shanghai
     command: 
       - "--api.insecure=true"
@@ -19,21 +19,12 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.http.address=:80"
       - "--entrypoints.https.address=:443"
-        #      - "--entrypoints.websecure.http.tls=true"
-        #- "--entrypoints.websecure.http.tls.certresolver=ali"
-        #- "--entrypoints.websecure.http.tls.domains[0].main=miya.rxxy.xyz"
-        #- "--entrypoints.websecure.http.tls.domains[0].sans=*.rxxy.xyz"
       - "--certificatesresolvers.default.acme.email=891841484@qq.com"
       - "--certificatesresolvers.default.acme.storage=/etc/traefik/acme.json"
-        #      - "--certificatesresolvers.ali.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-        #      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-        #      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-        #      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=websecure"  
       - "--certificatesresolvers.default.acme.dnschallenge=true"
       - "--certificatesresolvers.default.acme.dnschallenge.provider=alidns"
-        #      - "--certificatesresolvers.myresolver.acme.dnschallenge.delaybeforecheck=20"
-        #      - "--tls.stores.default.defaultCertificate.certFile=miya.rxxy.icu.cer"
-        #      - "--tls.stores.default.defaultCertificate.keyFile=miya.rxxy.icu.key"
+      - "--providers.file.filename=/etc/traefik/traefik-dynamic.toml"
+      - "--providers.file.watch=true"
       - "--log.level=TRACE"
     ports:
       - "80:80"
@@ -41,10 +32,7 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-#      - type: bind
-#        source: ./acme.json
-#        target: /etc/acme.json
-      - ./acme/:/etc/traefik/
+      - ./traefik/:/etc/traefik/
 networks:
   traefik:
     external: true
