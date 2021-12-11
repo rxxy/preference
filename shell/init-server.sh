@@ -54,8 +54,7 @@ installAcme(){
 }
 
 installTool(){
-    yum install -y epel-release tmux htop
-    yum install -y lrzsz
+    yum install -y epel-release tmux htop lrzsz git
 }
 
 
