@@ -68,5 +68,5 @@ fi
 
 # initDisk
 installDocker
-installAcme
+#installAcme
 installTool
