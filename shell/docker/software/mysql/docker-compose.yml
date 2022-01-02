@@ -20,4 +20,6 @@ networks:
     external: true
 volumes:
   db-data:
+    external: true
   db-config:
+    external: true
