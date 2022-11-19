@@ -1,6 +1,0 @@
-[http]
-  [http.middlewares.redirecthttps]
-    [http.middlewares.redirecthttps.redirectscheme]
-      scheme = "https"
-      permanent = "true"
-
