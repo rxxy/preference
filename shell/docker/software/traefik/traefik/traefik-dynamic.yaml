@@ -4,3 +4,21 @@ http:
       redirectScheme:
         scheme: https
         permanent: true
+        port: 443
+  routers:
+  # 全局转https，如果没有被覆盖的话就生效，优先级为-1，正常情况下，其他路由的优先级都会比这个高
+    tohttps:
+      priority: -1
+      entryPoints:
+        - http
+      rule: "HostRegexp(`{host:.*\\.rxxy\\.icu}`)"
+      middlewares:
+        - redirecthttps
+      service: noop@internal
+      # tls:
+      #   certResolver: default
+      #   domains:
+      #     main: rxxy.icu
+      #     sans: 
+      #       - "*.rxxy.icu"
+
