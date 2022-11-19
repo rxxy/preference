@@ -2,15 +2,26 @@ version: '3.3'
 
 services:
   traefik:
-    image: traefik:v2.4.8
+    image: traefik:v2.9.5
     container_name: 'traefik'
     restart: always
     networks: 
       - traefik
     environment:
-      ALICLOUD_ACCESS_KEY: ALICLOUD_ACCESS_KEY
-      ALICLOUD_SECRET_KEY: ALICLOUD_SECRET_KEY 
+      ALICLOUD_ACCESS_KEY: XXXX
+      ALICLOUD_SECRET_KEY: XXXX 
       TZ: Asia/Shanghai
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.traefik.rule: "Host(`XXX`)"
+      traefik.http.routers.traefik.entrypoints: "http, https"
+      traefik.http.routers.traefik.middlewares: "redirecthttps@file, basic-auth"
+      traefik.http.middlewares.basic-auth.basicauth.users: "XXX"
+      traefik.http.routers.traefik.tls: "true"
+      traefik.http.routers.traefik.tls.certresolver: "default"
+      traefik.http.services.traefik.loadbalancer.server.port: "8080"
+
+
     command: 
       - "--api.insecure=true"
       - "--api.dashboard=true"
@@ -23,13 +34,12 @@ services:
       - "--certificatesresolvers.default.acme.storage=/etc/traefik/acme.json"
       - "--certificatesresolvers.default.acme.dnschallenge=true"
       - "--certificatesresolvers.default.acme.dnschallenge.provider=alidns"
-      - "--providers.file.filename=/etc/traefik/traefik-dynamic.toml"
+      - "--providers.file.filename=/etc/traefik/traefik-dynamic.yaml"
       - "--providers.file.watch=true"
       - "--log.level=TRACE"
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/:/etc/traefik/
