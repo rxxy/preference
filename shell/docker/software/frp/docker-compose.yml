@@ -5,7 +5,24 @@ services:
     image: snowdreamtech/frps
     environment:
       TZ: Asia/Shanghai
-    network_mode: "host"
+#    network_mode: "host"
+    networks:
+      - traefik
+    ports:
+      - 7000:7000
+      - 1235:1235
     volumes:
       - ./frps.ini:/etc/frp/frps.ini
     restart: always
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.home.rule: "Host(`host`)"
+      traefik.http.routers.home.entrypoints: "https"
+      traefik.http.routers.home.middlewares: "redirecthttps@file"
+      traefik.http.routers.home.tls: "true"
+      traefik.http.routers.home.tls.certresolver: "default"
+      traefik.http.services.home.loadbalancer.server.port: "8081"
+
+networks:
+  traefik:
+    external: true
