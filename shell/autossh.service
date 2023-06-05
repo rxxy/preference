@@ -1,0 +1,23 @@
+#/usr/lib/systemd/system/autossh.service
+#systemctl daemon-reload
+$systemctl enable --now autossh
+
+[Unit]
+Description=Auto SSH Tunnel
+After=network-online.target
+[Service]
+User=root
+Type=simple
+PIDFile=/var/run/autossh.pid
+ExecStart=/usr/bin/autossh -M 4010 -f -NR 5678:localhost:22 root@xxx
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+StartLimitIntervalSec=5
+StartLimitBurst=12
+Restart=always
+RestartSec=42s
+[Install]
+WantedBy=multi-user.target
+
+
+
