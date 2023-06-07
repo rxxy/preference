@@ -1,5 +1,5 @@
 
-### 生成CA根证书
+## 生成CA根证书
 ca.conf
 
 ```
@@ -21,7 +21,7 @@ commonName_max              = 64
 commonName_default          = Rxxy
 ```
 
-生成私钥、签发请求文件、证书文件
+### 生成私钥、签发请求文件、证书文件
 ```
 openssl genrsa -out ca.key 4096
 
@@ -40,7 +40,7 @@ openssl x509 \
     -out ca.crt
 ```
 
-### 签发终端证书
+## 签发终端证书
 
 server.conf
 
@@ -74,7 +74,7 @@ DNS.4   = *.rxxy.pi
 IP.1    = 192.168.2.170
 ```
 
-生成私钥、签发请求文件、证书文件
+### 生成私钥、签发请求文件、证书文件
 ```
 openssl genrsa -out server.key 2048
 
@@ -95,4 +95,24 @@ openssl x509 \
   -out server.crt \
   -extensions req_ext \
   -extfile server.conf
+```
+
+## 一句话快捷命令
+
+### 签发CA证书
+```
+mkdir ca/
+生成csr和key
+openssl req -new -keyout ca/private.key -out ca/csr.pem -nodes -subj "/C=CN/ST=Beijing/L=HaiDian/O=Company/CN=www.mydomain.com"
+生成证书
+openssl x509 -req -days 3650 -in ca/csr.pem -signkey ca/private.key -out ca/certificate.crt
+```
+
+### 利用CA证书签发终端证书
+```
+mkdir domain && cd domain
+生成csr和key
+openssl req -new -keyout ./private.key -out ./csr.pem -nodes -subj "/C=CN/ST=Beijing/L=HaiDian/O=Company/CN=www.mydomain.com"
+生成证书
+openssl x509 -req -days 3650 -in csr.pem -out certificate.crt -CA ../ca/certificate.crt -CAkey ../ca/private.key -CAcreateserial 
 ```
