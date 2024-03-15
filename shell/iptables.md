@@ -13,3 +13,9 @@ iptables -t nat -A PREROUTING -p udp -m udp --dport 60000 -j DNAT --to-destinati
 iptables -t nat -A POSTROUTING -d 1.1.1.1/32 -p tcp -m tcp --dport 50000 -j SNAT --to-source [本地服务器IP]
 iptables -t nat -A POSTROUTING -d 1.1.1.1/32 -p udp -m udp --dport 50000 -j SNAT --to-source [本地服务器IP]
 ```
+
+### 分析数据包流向，增加日志
+```
+iptables -t raw -A PREROUTING -p tcp --destination 192.168.0.0/24 --dport 80 -j TRACE
+iptables -t raw -A OUTPUT -p tcp --destination 192.168.0.0/24 --dport 80 -j TRACE
+```
