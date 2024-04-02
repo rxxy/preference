@@ -27,3 +27,34 @@ for xfs filesystem
 for ext4 filesystem  
 `resize2fs /dev/centos/root`
 
+### 缩容
+1. 卸载分区
+` umount /dev/openeuler/home`
+2. 调整文件系统大小  
+for ext4 filesystem  
+`resize2fs /dev/openeuler/home 200G`  
+for xfs filesystem  
+`xfs_growfs /dev/openeuler/home 200G`
+3. 调整逻辑卷大小  
+`lvreduce -L -500G /dev/openeuler/home` 或 `lvreduce -L 200G /dev/openeuler/home`
+4. 挂载分区  
+`mount /dev/openeuler/home /home`
+
+### 扩容
+1. 扩展分区  
+`lvextend -L +500G /dev/mapper/openeuler-root` 或 `lvextend -L 800G /dev/mapper/openeuler-root`
+2. 扩展文件系统  
+for ext4 filesystem  
+`resize2fs /dev/mapper/openeuler-root`  
+for xfs filesystem  
+`xfs_growfs /dev/mapper/openeuler-root`
+
+
+
+
+
+
+
+
+
+
