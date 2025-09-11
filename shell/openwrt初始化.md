@@ -10,6 +10,9 @@ sed -i 's_downloads.openwrt.org_mirrors.aliyun.com/openwrt_' /etc/opkg/distfeeds
 ## 扩容(squashfs)
 https://juejin.cn/post/7248648256284901437#heading-3
 
+##扩容(ext4)
+https://pve.sqlsec.com/5/2
+
 ## 基础软件
 `opkg install luci-i18n-filemanager-zh-cn curl luci-i18n-base-zh-cn git-http`
 
