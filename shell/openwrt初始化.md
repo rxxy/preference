@@ -11,7 +11,7 @@ sed -i 's_downloads.openwrt.org_mirrors.aliyun.com/openwrt_' /etc/opkg/distfeeds
 https://juejin.cn/post/7248648256284901437#heading-3
 
 ## 基础软件
-`opkg install luci-i18n-filemanager-zh-cn curl`
+`opkg install luci-i18n-filemanager-zh-cn curl luci-i18n-base-zh-cn git-http`
 
 ## 主题
 https://github.com/jerrykuku/luci-theme-argon
