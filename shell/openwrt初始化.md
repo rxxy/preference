@@ -30,7 +30,7 @@ https://github.com/vernesong/OpenClash/wiki/%E5%AE%89%E8%A3%85
 
 
 ## 局域网网卡唤醒
-`opkg install luci-app-wol`
+`opkg install luci-i18n-wol-zh-cn`
 
 ## wireguard
 `opkg install luci-proto-wireguard`  
