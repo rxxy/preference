@@ -12,6 +12,7 @@ https://juejin.cn/post/7248648256284901437#heading-3
 
 ##扩容(ext4)
 https://pve.sqlsec.com/5/2
+`opkg install cfdisk losetup resize2fs `
 
 ## 基础软件
 `opkg install luci-i18n-filemanager-zh-cn curl luci-i18n-base-zh-cn git-http`
