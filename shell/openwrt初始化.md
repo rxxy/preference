@@ -19,7 +19,7 @@ https://pve.sqlsec.com/5/2
 
 ## 主题
 https://github.com/jerrykuku/luci-theme-argon
-
+`opkg install luci-compat luci-lib-ipkg`
 ## openclash
 https://github.com/vernesong/OpenClash/wiki/%E5%AE%89%E8%A3%85
 > 按文档安装, 以下命令仅供参考  
